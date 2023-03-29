@@ -1,336 +1,211 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="row">
+<div id="loader" class="lds-dual-ring hidden overlaynew"></div>
+<section class="signup-step-container">
 
-    <!-- Left side columns -->
-    <div class="col-lg-8">
-      <div class="row">
+  <div class="container">
 
-        <!-- Sales Card -->
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card sales-card">
+    <form class="regForm contract_form" id="regForm" action="/contract_details" method="post"
+      enctype="multipart/form-data" onsubmit="return validateMyForm();">
 
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
 
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
+      <div class="tab">
 
-            <div class="card-body">
-              <h5 class="card-title">Sales <span>| Today</span></h5>
+        <div class="upload-head">
+          <h1>Please Upload file</h1>
+          <p class="text-center">Please upload a signed quotation or the customer purchase order</p>
+        </div>
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-cart"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>145</h6>
-                  <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
-                </div>
+        <div class="formbold-main-wrapper">
+          <!-- Author: FormBold Team -->
+          <!-- Learn More: https://formbold.com -->
+          <div class="formbold-form-wrapper">
+            <div class="mb-6">
+
+
+              <div class="formbold-mb-5 formbold-file-input">
+                <input type="file" name="file" id="file" hidden />
+                <label for="file">
+                  <div>
+                    <span class="formbold-drop-file text-center"> <img
+                        src="{{ url_for('static', filename='assets/img/storage 1.png') }}"></span>
+                    <span class="formbold-drop-file"> Select a file or drag and drop here </span>
+                    <span class="formbold-or"> Or </span>
+                    <span class="formbold-browse"> Select file </span>
+                    <div id="up-progress">
+                      <div id="up-bar"></div>
+                      <div id="up-percent">0%</div>
+                    </div>
+                    <div id="feedback">
+                    </div>
+
+
+                  </div>
+                </label>
               </div>
-            </div>
-
-          </div>
-        </div><!-- End Sales Card -->
-
-        <!-- Revenue Card -->
-        <div class="col-xxl-4 col-md-6">
-          <div class="card info-card revenue-card">
-
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
-            <div class="card-body">
-              <h5 class="card-title">Revenue <span>| This Month</span></h5>
-
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-currency-dollar"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>$3,264</h6>
-                  <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div><!-- End Revenue Card -->
-
-        <!-- Customers Card -->
-        <div class="col-xxl-4 col-xl-12">
-
-          <div class="card info-card customers-card">
-
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
-            <div class="card-body">
-              <h5 class="card-title">Customers <span>| This Year</span></h5>
-
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-people"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>1244</h6>
-                  <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                </div>
-              </div>
-
+              <div class='alert alert-danger mt-2 d-none text-danger' id="err_file"></div>
             </div>
           </div>
-
-        </div><!-- End Customers Card -->
-
-        <!-- Reports -->
-        <div class="col-12">
-          <div class="card">
-
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
-            <div class="card-body">
-              <h5 class="card-title">Reports <span>/Today</span></h5>
-
-              <!-- Line Chart -->
-              <div id="reportsChart"></div>
-
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new ApexCharts(document.querySelector("#reportsChart"), {
-                    series: [{
-                      name: 'Sales',
-                      data: [31, 40, 28, 51, 42, 82, 56],
-                    }, {
-                      name: 'Revenue',
-                      data: [11, 32, 45, 32, 34, 52, 41]
-                    }, {
-                      name: 'Customers',
-                      data: [15, 11, 32, 18, 9, 24, 11]
-                    }],
-                    chart: {
-                      height: 350,
-                      type: 'area',
-                      toolbar: {
-                        show: false
-                      },
-                    },
-                    markers: {
-                      size: 4
-                    },
-                    colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                    fill: {
-                      type: "gradient",
-                      gradient: {
-                        shadeIntensity: 1,
-                        opacityFrom: 0.3,
-                        opacityTo: 0.4,
-                        stops: [0, 90, 100]
-                      }
-                    },
-                    dataLabels: {
-                      enabled: false
-                    },
-                    stroke: {
-                      curve: 'smooth',
-                      width: 2
-                    },
-                    xaxis: {
-                      type: 'datetime',
-                      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                    },
-                    tooltip: {
-                      x: {
-                        format: 'dd/MM/yy HH:mm'
-                      },
-                    }
-                  }).render();
-                });
-              </script>
-              <!-- End Line Chart -->
-
-            </div>
-
-          </div>
-        </div><!-- End Reports -->
+        </div>
 
       </div>
-    </div><!-- End Left side columns -->
+      <div class="tab">
 
-    <!-- Right side columns -->
-    <div class="col-lg-4">
+        <div class="upload-head">
+          <h1>Select Use Case:</h1>
 
-      <!-- Recent Activity -->
-      <div class="card">
-        <div class="filter">
-          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <li class="dropdown-header text-start">
-              <h6>Filter</h6>
-            </li>
-
-            <li><a class="dropdown-item" href="#">Today</a></li>
-            <li><a class="dropdown-item" href="#">This Month</a></li>
-            <li><a class="dropdown-item" href="#">This Year</a></li>
-          </ul>
         </div>
 
-        <div class="card-body">
-          <h5 class="card-title">Recent Activity <span>| Today</span></h5>
 
-          <div class="activity">
+        <div class="formbold-main-wrapper">
+          <!-- Author: FormBold Team -->
+          <!-- Learn More: https://formbold.com -->
+          <div class="formbold-form-wrapper">
+            <div class="mb-6">
 
-            <div class="activity-item d-flex">
-              <div class="activite-label">32 min</div>
-              <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-              <div class="activity-content">
-                Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-              </div>
-            </div><!-- End activity item-->
+              <fieldset class="repeatable-field" data-component="field-repeater" data-props='
+              {
+                  "maxRows": 10,
+                  "inputName": "guests",
+                  "labelText": "Guest"
+              }' tabindex="0">
+                <legend>
+                  Specifications
+                </legend>
 
-            <div class="activity-item d-flex">
-              <div class="activite-label">56 min</div>
-              <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-              <div class="activity-content">
-                Voluptatem blanditiis blanditiis eveniet
-              </div>
-            </div><!-- End activity item-->
+                <ol class="repeatable-field__rows" data-ref="rowList"></ol>
 
-            <div class="activity-item d-flex">
-              <div class="activite-label">2 hrs</div>
-              <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-              <div class="activity-content">
-                Voluptates corrupti molestias voluptatem
-              </div>
-            </div><!-- End activity item-->
+                <div class="repeatable-field__bottom">
+                  <span class="repeatable-field__limit-counter" data-ref="limitCounter"></span>
 
-            <div class="activity-item d-flex">
-              <div class="activite-label">1 day</div>
-              <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-              <div class="activity-content">
-                Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-              </div>
-            </div><!-- End activity item-->
+                  <button class="repeatable-field__add-button button" data-ref="addButton" type="button">
+                    + Add Specifications
+                  </button>
+                </div>
+              </fieldset>
 
-            <div class="activity-item d-flex">
-              <div class="activite-label">2 days</div>
-              <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-              <div class="activity-content">
-                Est sit eum reiciendis exercitationem
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">4 weeks</div>
-              <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-              <div class="activity-content">
-                Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-              </div>
-            </div><!-- End activity item-->
-
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="tab">
+
+        <div class="upload-head">
+          <h1>Enter Charector Length of Answer:</h1>
 
         </div>
-      </div><!-- End Recent Activity -->
 
 
-      <!-- News & Updates Traffic -->
-      <div class="card">
-        <div class="filter">
-          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <li class="dropdown-header text-start">
-              <h6>Filter</h6>
-            </li>
+        <div class="formbold-main-wrapper">
+          <!-- Author: FormBold Team -->
+          <!-- Learn More: https://formbold.com -->
+          <div class="formbold-form-wrapper">
+            <div class="mb-6">
 
-            <li><a class="dropdown-item" href="#">Today</a></li>
-            <li><a class="dropdown-item" href="#">This Month</a></li>
-            <li><a class="dropdown-item" href="#">This Year</a></li>
-          </ul>
+              <div class="group input-group">
+                <label class="control-label labelcalss" for="email">No of Character</label>
+                <div class="group input-group">
+                  <input type="text" placeholder="Workspace Name" name="workspace_name" id="workspace_name" value="">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab">
+
+        <div class="upload-head">
+          <h1>Enter Charector Length of Answer:</h1>
+
         </div>
 
-        <div class="card-body pb-0">
-          <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
 
-          <div class="news">
-            <div class="post-item clearfix">
-              <img src="{{ url_for('static', filename='assets/img/news-1.jpg') }}" alt="">
-              <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
-              <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
+        <div class="">
+          <!-- Author: FormBold Team -->
+          <!-- Learn More: https://formbold.com -->
+          <div class="formbold-form-wrapper">
+            <div class="container mt-4">
+
+              <div class="text-center darken-grey-text mb-4">
+                <h1 class="font-bold mt-4 mb-3 h5">Download Extracted Questions CSV File</h1>
+                <a class="btn btn-danger btn-md" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">CSV download<i class="fa fa-download pl-2"></i></a>
+              </div>
+        
+              <div class="card mb-4">
+                <div class="card-body">
+                  <!-- Grid row -->
+                  <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-12">
+                      <h2 class="pt-3 pb-4 text-center font-bold font-up deep-purple-text">Search within table</h2>
+                      <div class="input-group md-form form-sm form-2 pl-0">
+                        <input class="form-control my-0 py-1 pl-3 purple-border" type="text" placeholder="Search something here..." aria-label="Search">
+                        <span class="input-group-addon waves-effect purple lighten-2" id="basic-addon1"style="width:40px;"><a><i class="bi bi-search"></i></a></span>
+                      </div>
+                    </div>
+                    <!-- Grid column -->
+                  </div>
+                  <!-- Grid row -->
+                  <!--Table-->
+                  <table class="table table-bordered table-striped"id="questionTable">
+                    <!--Table head-->
+                    <thead>
+                      <tr>
+                        <th>S.No</th>
+                        <th>Questions</th>
+                        <th colspan="2">Actions</th>
+                        
+                      </tr>
+                    </thead>
+                    <!--Table head-->
+                    <!--Table body-->
+                    <tbody>
+                     
+                    </tbody>
+                    <!--Table body-->
+                  </table>
+                  <!--Table-->
+                </div>
+              </div>
+            
+        
             </div>
-
-            <div class="post-item clearfix">
-              <img src="{{ url_for('static', filename='assets/img/news-2.jpg') }}" alt="">
-              <h4><a href="#">Quidem autem et impedit</a></h4>
-              <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
-            </div>
-
-            <div class="post-item clearfix">
-              <img src="{{ url_for('static', filename='assets/img/news-3.jpg') }}" alt="">
-              <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
-              <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
-            </div>
-
-            <div class="post-item clearfix">
-              <img src="{{ url_for('static', filename='assets/img/news-4.jpgg') }}" alt="">
-              <h4><a href="#">Laborum corporis quo dara net para</a></h4>
-              <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
-            </div>
-
-            <div class="post-item clearfix">
-              <img src="{{ url_for('static', filename='assets/img/news-5.jpg') }}" alt="">
-              <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
-              <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
-            </div>
-
-          </div><!-- End sidebar recent posts-->
-
+            <!--MDB Tables-->
+          </div>
         </div>
-      </div><!-- End News & Updates -->
+      </div>
 
-    </div><!-- End Right side columns -->
+    </form>
+    <div class="formbold-main-wrapper">
+      <!-- Author: FormBold Team -->
+      <!-- Learn More: https://formbold.com -->
+      <div class="formbold-form-wrapper">
+        <div style="overflow:auto;">
+          <div style="float:right;">
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
-  {% endblock %}
+
+  <!-- Circles which indicates the steps of the form: -->
+  <div style="text-align:center;margin-top:40px;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+
+  </div>
+
+  </div>
+
+  </div>
+</section>
+
+{% endblock %}
